@@ -1,20 +1,25 @@
-<!-- <h2>{{ hero.name }}</h2> -->
+<h2>
+    My Heroes
+</h2>
 
 <div>
-    <h2>My Heroes</h2>
-    <ul class="heroes">
-        <li *ngFor="let hero of heroes" [class.selected]="hero===selectedHero" (click) = "onSelect(hero)">
-            <span class="badge">{{ hero.id }}</span>{{ hero.name }}
-        </li>
-    </ul>
+    <label>Hero name:
+        <input #heroName>
+    </label>
+
+    <!-- (click) passes input value to add() and then clears the input -->
+    <button (click)="add(heroName.value); heroName.value=''">
+        Add
+    </button>
 </div>
 
-<app-hero-details [hero]="selectedHero"></app-hero-details>
-
-<!-- <div>
-    <label>Name:
-         <input [(ngModel)]="hero.name" type="text" placeholder="name">
-          <input [(ngModel)]="hero.id" type="number" placeholder="id"> 
-
-    </label>
-</div> -->
+<ul class="heroes">
+    <li *ngFor="let hero of heroes">
+        <a routerLink="/details/{{ hero.id }}">
+            <span class="badge"> {{hero.id}}</span>
+            {{ hero.name }}
+        </a>
+        
+        <button class="delete" title="delete hero" (click)="delete(hero)">x</button>
+    </li>
+</ul>
